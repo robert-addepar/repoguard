@@ -80,6 +80,8 @@ class RepoGuard:
                                  'checked based on the status file')
         parser.add_argument('--overridelock', default=False,
                             help='Ignores the lock file so multiple repoguard can run in parallel')
+        parser.add_argument('--start-at', default=False,
+                            help='Start at a specific commit')
 
         self.args = parser.parse_args()
 
@@ -298,6 +300,8 @@ class RepoGuard:
 
         if self.args.since:
             rev_list_to_check = repo.get_rev_list_since_date(self.args.since)
+        elif self.args.start:
+            rev_list_to_check = repo.get_rev_list_starting_at(self.args.start)
         else:
             if self.args.ignorestatus:
                 rev_list_to_check = repo.get_last_commit_hashes()

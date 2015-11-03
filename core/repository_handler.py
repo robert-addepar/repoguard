@@ -76,6 +76,15 @@ class Repository():
             self.logger.error(error_msg)
         return []
 
+    def get_rev_list_start_at(self, start_at):
+        cmd = ["git", "log", "--reverse", "--ancestry-path", "--format='%H", "{}...HEAD".format(start_at)]
+        try:
+            return subprocess.check_output(cmd, cwd=self.full_dir_path).split("\n")
+        except subprocess.CalledProcessError, e:
+            error_msg = "Error when calling {} (cwd: {}): {}".format(repr(cmd), self.full_dir_path, e)
+            self.logger.error(error_msg)
+        return []
+
     def git_reset_to_oldest_hash(self):
         if self.last_checked_commit_hashes:
             self.call_command("git reset --hard %s" % self.last_checked_commit_hashes[0])
