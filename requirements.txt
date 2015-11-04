@@ -8,3 +8,4 @@ pygithub==1.25.1
 lockfile==0.10.2
 raven==5.4.4
 mock==1.0.1
+urllib3==1.12
