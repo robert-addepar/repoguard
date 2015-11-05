@@ -81,7 +81,7 @@ class RepoGuard:
                                  'checked based on the status file')
         parser.add_argument('--overridelock', default=False,
                             help='Ignores the lock file so multiple repoguard can run in parallel')
-        parser.add_argument('--start-at', default=False,
+        parser.add_argument('--start', default=False,
                             help='Start at a specific commit')
 
         self.args = parser.parse_args()
