@@ -2,3 +2,6 @@ default_notification_src_address: ""
 default_notification_to_address: ""
 git:
     detect_rename: false
+github:
+    token: ""
+    organization_name: ""
