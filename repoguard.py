@@ -223,6 +223,10 @@ class RepoGuard:
             except DataStoreException:
                 self.logger.exception('Got exception during storing results to ES.')
 
+    def echo_results(self):
+        for alert in self.check_results:
+            print(alert)
+
     def alert_details_text(self, alert):
         check_id = alert.rule.name
         filename = alert.filename
