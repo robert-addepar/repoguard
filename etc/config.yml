@@ -5,3 +5,14 @@ git:
 github:
     token: ""
     organization_name: ""
+notifications: false
+repo_groups: {}
+rules_to_groups: {}
+skip_repo_list: []
+smtp:
+    host: ""
+    port: 0
+    username: ""
+    password: ""
+    use_tls: true
+subscribers: {}
