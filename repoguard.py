@@ -74,6 +74,7 @@ class RepoGuard:
                             help='Notify pre-defined contacts via e-mail')
         parser.add_argument('--verbose', '-v', action="count", default=False, help='Verbose mode')
         parser.add_argument('--store', '-S', default=False, help='ElasticSearch node (host:port)')
+        parser.add_argument('--echo', default=False, help='Print the results to stdout')
         parser.add_argument('--sentry', default=None, help='Sentry url with user:pass (optional)')
         parser.add_argument('--ignorestatus', action='store_true', default=False,
                             help='If true repoguard will not skip commits which were already '
@@ -467,6 +468,9 @@ class RepoGuard:
 
         if self.args.store:
             self.store_results()
+
+        if self.args.echo:
+            self.echo_results()
 
         if not self.args.since:
             self.repository_handler.save_repo_status_to_file()
