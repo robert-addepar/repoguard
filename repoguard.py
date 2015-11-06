@@ -461,9 +461,8 @@ class RepoGuard:
         if not self.args.nopull:
             self.update_local_repos()
 
+        print("HELLO.... IS IT ME YOU'RE LOOKING FOR?")
         self.check_new_code(self.detect_rename)
-
-        print(self.check_results)
 
         if self.args.notify:
             self.send_results()
@@ -471,7 +470,6 @@ class RepoGuard:
         if self.args.store:
             self.store_results()
 
-        print("HELLO... IS IT ME YOU'RE LOOKING FOR?")
         if self.args.echo:
             self.echo_results()
 
