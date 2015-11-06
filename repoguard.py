@@ -471,8 +471,8 @@ class RepoGuard:
         if self.args.store:
             self.store_results()
 
+        print("HELLO... IS IT ME YOU'RE LOOKING FOR?")
         if self.args.echo:
-            print("HELLO.. IS IT ME YOU'RE LOOKING FOR?")
             self.echo_results()
 
         if not self.args.since:
