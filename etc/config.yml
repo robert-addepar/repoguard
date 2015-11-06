@@ -16,3 +16,4 @@ smtp:
     password: ""
     use_tls: true
 subscribers: {}
+debug: True
