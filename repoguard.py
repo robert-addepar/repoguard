@@ -442,8 +442,8 @@ class RepoGuard:
 
         self.read_config(self.CONFIG_PATH)
 
-        print("HELLO...... IS IT ME YOU'RE LOOKING FOR?")
         self.try_to_lock()
+        print("HELLO....... IS IT ME YOU'RE LOOKING FOR?")
         self.read_alert_config_from_file()
         self.set_up_repository_handler()
 
