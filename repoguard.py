@@ -442,11 +442,11 @@ class RepoGuard:
 
         self.read_config(self.CONFIG_PATH)
 
+        print("HELLO...... IS IT ME YOU'RE LOOKING FOR?")
         self.try_to_lock()
         self.read_alert_config_from_file()
         self.set_up_repository_handler()
 
-        print("HELLO..... IS IT ME YOU'RE LOOKING FOR?")
         if self.args.refresh or not self.repository_handler.get_repo_list():
             git_repo_updater_obj = GitRepoUpdater(self.org_name, self.github_token,
                                                   self.repository_handler.repo_list_file, self.logger)
