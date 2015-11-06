@@ -477,7 +477,7 @@ class RepoGuard:
             self.repository_handler.save_repo_status_to_file()
 
         self.logger.info("* run finished")
-        self.lock_handler.release()
+        #self.lock_handler.release()
 
 
 if __name__ == '__main__':
