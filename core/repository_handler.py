@@ -76,7 +76,7 @@ class Repository():
             self.logger.error(error_msg)
         return []
 
-    def get_rev_list_start_at(self, start_at):
+    def get_rev_list_starting_at(self, start_at):
         cmd = ["git", "log", "--reverse", "--ancestry-path", "--format='%H", "{}...HEAD".format(start_at)]
         try:
             return subprocess.check_output(cmd, cwd=self.full_dir_path).split("\n")
