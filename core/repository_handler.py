@@ -77,7 +77,7 @@ class Repository():
         return []
 
     def get_rev_list_starting_at(self, start_at):
-        cmd = ["git", "log", "--reverse", "--ancestry-path", "{}...HEAD".format(start_at), "--format='%H"]
+        cmd = ["git", "log", "--reverse", "{}...HEAD".format(start_at), "--format='%H"]
         try:
             return subprocess.check_output(cmd, cwd=self.full_dir_path).split("\n")
         except subprocess.CalledProcessError, e:
