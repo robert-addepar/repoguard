@@ -463,6 +463,8 @@ class RepoGuard:
 
         self.check_new_code(self.detect_rename)
 
+        print(self.check_results)
+
         if self.args.notify:
             self.send_results()
 
