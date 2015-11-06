@@ -437,6 +437,7 @@ class RepoGuard:
             sys.exit()
 
     def run(self):
+        print("HELLO. IS IT ME YOU'RE LOOKING FOR?")
         self.logger.info('* run started')
         self.logger.debug('Called with arguments: %s' % self.args)
 
