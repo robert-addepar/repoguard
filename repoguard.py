@@ -446,6 +446,7 @@ class RepoGuard:
         self.read_alert_config_from_file()
         self.set_up_repository_handler()
 
+        print("HELLO..... IS IT ME YOU'RE LOOKING FOR?")
         if self.args.refresh or not self.repository_handler.get_repo_list():
             git_repo_updater_obj = GitRepoUpdater(self.org_name, self.github_token,
                                                   self.repository_handler.repo_list_file, self.logger)
@@ -461,7 +462,6 @@ class RepoGuard:
         if not self.args.nopull:
             self.update_local_repos()
 
-        print("HELLO.... IS IT ME YOU'RE LOOKING FOR?")
         self.check_new_code(self.detect_rename)
 
         if self.args.notify:
