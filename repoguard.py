@@ -443,7 +443,6 @@ class RepoGuard:
         self.read_config(self.CONFIG_PATH)
 
         #self.try_to_lock()
-        #print("HELLO....... IS IT ME YOU'RE LOOKING FOR?")
         self.read_alert_config_from_file()
         self.set_up_repository_handler()
 
@@ -470,6 +469,7 @@ class RepoGuard:
         if self.args.store:
             self.store_results()
 
+        print("HELLO....... IS IT ME YOU'RE LOOKING FOR?")
         if self.args.echo:
             self.echo_results()
 
