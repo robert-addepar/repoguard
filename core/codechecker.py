@@ -10,6 +10,7 @@ class CodeChecker:
 
     def check(self, lines, context, repo=None):
         rules_applied_for_this_repo = filter(self._filter_rules(repo.name), self.rules) if repo else self.rules
+        print("rules_applied_for_this_repo:\n{}".format(rules_applied_for_this_repo))
         # pre-filter rules with line-invariant rules:
         applicable_rules = filter(self._check_line_invariants(context), rules_applied_for_this_repo)
         print("applicable_rules:\n{}".format(applicable_rules))
