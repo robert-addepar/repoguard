@@ -23,6 +23,7 @@ class RuleLoader:
     def load(self):
         with open(self.file_name) as f:
             content = f.read()
+            print("{} content:\n{}".format(f, content))
             return {self._get_key(c): self._load_yaml(c) for c in content.split('---') if len(c) > 0}
 
     @staticmethod
@@ -61,6 +62,7 @@ def load_rules(rule_dir):
         for filename in filenames:
             if filename.endswith(".yml"):
                 try:
+                    print("loading rule file: {}".format(filename))
                     rules.update(RuleLoader(os.path.join(dirpath, filename)).load())
                 except Exception as e:
                     raise RuleLoaderException("Error parsing file %s" % filename, str(e)), \
