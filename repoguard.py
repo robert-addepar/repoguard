@@ -321,6 +321,8 @@ class RepoGuard:
             repo.add_commit_hash_to_checked(rev_hash)
             rev_result = self.check_by_rev_hash(rev_hash, repo, detect_rename)
             if rev_result:
+                print("rev_result:")
+                print(rev_result)
                 matches_in_repo = matches_in_repo + rev_result
         if len(rev_list_to_check) > 0:
             self.logger.info("checked commits %s %s" % (repo.name, len(rev_list_to_check)))
@@ -333,6 +335,7 @@ class RepoGuard:
 
         try:
             diff_output = subprocess.check_output(cmd.split(), cwd=repo.full_dir_path)
+            print("DIFF OUTPUT:\n{}".format(diff_output))
             author = diff_output.split("Author: ")[1].split("\n")[0]
             splitted = re.split(r'^diff --git a/\S* b/(\S+)$', diff_output, flags=re.MULTILINE)[1:]
             commit_description_cmd = "git log --pretty=%s -n 1 " + rev_hash
