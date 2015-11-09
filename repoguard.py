@@ -308,6 +308,8 @@ class RepoGuard:
             rev_list_to_check = repo.get_rev_list_since_date(self.args.since)
         elif self.args.start:
             rev_list_to_check = repo.get_rev_list_starting_at(self.args.start)
+            print("WILL CHECK THESE REVISIONS")
+            print(rev_list_to_check)
         else:
             if self.args.ignorestatus:
                 rev_list_to_check = repo.get_last_commit_hashes()
@@ -315,8 +317,6 @@ class RepoGuard:
                 repo.detect_new_commit_hashes()
                 rev_list_to_check = repo.get_not_checked_commit_hashes()
 
-        print("CHECKING REVISIONS:")
-        print(rev_list_to_check)
         for rev_hash in rev_list_to_check:
             repo.add_commit_hash_to_checked(rev_hash)
             rev_result = self.check_by_rev_hash(rev_hash, repo, detect_rename)
