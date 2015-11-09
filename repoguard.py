@@ -226,6 +226,7 @@ class RepoGuard:
                 self.logger.exception('Got exception during storing results to ES.')
 
     def echo_results(self):
+        print(self.check_results)
 
     def alert_details_text(self, alert):
         check_id = alert.rule.name
