@@ -57,9 +57,12 @@ class RuleLoader:
 
 # Helper method to load configs in a dir
 def load_rules(rule_dir):
+    print("rule_dir: {}".format(rule_dir))
     rules = {}
     for (dirpath, dirnames, filenames) in os.walk(rule_dir, followlinks=True):
+        print("line 63: {} {} {}".format(dirpath, dirnames, filenames))
         for filename in filenames:
+            print("line 65 filename: {}".format(filename))
             if filename.endswith(".yml"):
                 try:
                     print("loading rule file: {}".format(filename))
