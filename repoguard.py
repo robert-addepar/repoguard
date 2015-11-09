@@ -387,13 +387,19 @@ class RepoGuard:
 
     def read_alert_config_from_file(self):
         bare_rules = load_rules(self.ALERT_CONFIG_DIR)
+        print("bare_rules\n{}".format(bare_rules))
         resolved_rules = build_resolved_ruleset(bare_rules)
+        print("resolved_rules\n{}".format(resolved_rules))
 
         # filter for items in --alerts parameter
         applied_alerts = {aid: adata for aid, adata in resolved_rules.iteritems()
                           if not self.args.alerts or aid in self.args.alerts}
 
+        print("applied_alerts\n{}".format(applied_alerts))
+
+
         # self.logger.debug('applied_alerts: %s' % repr(applied_alerts))
+        print("rules_to_groups\n{}".format(self.rules_to_groups))
         self.code_checker = CodeCheckerFactory(applied_alerts, self.repo_groups, self.rules_to_groups).create()
 
     def launch_full_repoguard_scan_on_repo(self, repo_name):
