@@ -171,6 +171,7 @@ class RepoGuard:
         self.worker_pool.map(partial(git_clone_or_pull, existing_repo_dirs, self.github_token), repos_to_update)
 
     def check_new_code(self, detect_rename=False):
+
         existing_repo_dirs = os.listdir(self.WORKING_DIR)
 
         repo_list = list(self.repository_handler.get_repo_list())
@@ -314,6 +315,8 @@ class RepoGuard:
                 repo.detect_new_commit_hashes()
                 rev_list_to_check = repo.get_not_checked_commit_hashes()
 
+        print("CHECKING REVISIONS:")
+        print(rev_list_to_check)
         for rev_hash in rev_list_to_check:
             repo.add_commit_hash_to_checked(rev_hash)
             rev_result = self.check_by_rev_hash(rev_hash, repo, detect_rename)
@@ -462,6 +465,9 @@ class RepoGuard:
             self.update_local_repos()
 
         self.check_new_code(self.detect_rename)
+
+        print("PRENOTIFY")
+        print(self.check_results)
 
         if self.args.notify:
             self.send_results()
