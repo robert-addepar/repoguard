@@ -226,8 +226,6 @@ class RepoGuard:
                 self.logger.exception('Got exception during storing results to ES.')
 
     def echo_results(self):
-        print("RESULTS INCOMING")
-        print(self.check_results)
 
     def alert_details_text(self, alert):
         check_id = alert.rule.name
@@ -308,8 +306,6 @@ class RepoGuard:
             rev_list_to_check = repo.get_rev_list_since_date(self.args.since)
         elif self.args.start:
             rev_list_to_check = repo.get_rev_list_starting_at(self.args.start)
-            print("WILL CHECK THESE REVISIONS")
-            print(rev_list_to_check)
         else:
             if self.args.ignorestatus:
                 rev_list_to_check = repo.get_last_commit_hashes()
@@ -321,8 +317,6 @@ class RepoGuard:
             repo.add_commit_hash_to_checked(rev_hash)
             rev_result = self.check_by_rev_hash(rev_hash, repo, detect_rename)
             if rev_result:
-                print("rev_result:")
-                print(rev_result)
                 matches_in_repo = matches_in_repo + rev_result
         if len(rev_list_to_check) > 0:
             self.logger.info("checked commits %s %s" % (repo.name, len(rev_list_to_check)))
@@ -335,7 +329,6 @@ class RepoGuard:
 
         try:
             diff_output = subprocess.check_output(cmd.split(), cwd=repo.full_dir_path)
-            print("DIFF OUTPUT:\n{}".format(diff_output))
             author = diff_output.split("Author: ")[1].split("\n")[0]
             splitted = re.split(r'^diff --git a/\S* b/(\S+)$', diff_output, flags=re.MULTILINE)[1:]
             commit_description_cmd = "git log --pretty=%s -n 1 " + rev_hash
@@ -362,7 +355,6 @@ class RepoGuard:
                 if match and len(match) == 3:
                     diff_first_line = int(match[1])
                     diff = match[2]
-                    print("LINE 365")
                 else:
                     if 'Binary files ' not in raw_diff and 'rename from' not in raw_diff and 'new file mode' not in raw_diff:
                         self.logger.warning('Was not able to parse unified diff header for diff: %s, match: %s',
@@ -376,7 +368,6 @@ class RepoGuard:
                     "commit_message": commit_description
                 }
                 result = self.code_checker.check(diff.split('\n'), check_context, repo)
-                print("RESULT:\n{}".format(result))
                 alerts = [create_alert(rule, line, diff, diff_first_line) for rule, line in result]
 
                 matches_in_rev.extend(alerts)
@@ -387,19 +378,15 @@ class RepoGuard:
 
     def read_alert_config_from_file(self):
         bare_rules = load_rules(self.ALERT_CONFIG_DIR)
-        print("bare_rules\n{}".format(bare_rules))
         resolved_rules = build_resolved_ruleset(bare_rules)
-        print("resolved_rules\n{}".format(resolved_rules))
 
         # filter for items in --alerts parameter
         applied_alerts = {aid: adata for aid, adata in resolved_rules.iteritems()
                           if not self.args.alerts or aid in self.args.alerts}
 
-        print("applied_alerts\n{}".format(applied_alerts))
 
 
         # self.logger.debug('applied_alerts: %s' % repr(applied_alerts))
-        print("rules_to_groups\n{}".format(self.rules_to_groups))
         self.code_checker = CodeCheckerFactory(applied_alerts, self.repo_groups, self.rules_to_groups).create()
 
     def launch_full_repoguard_scan_on_repo(self, repo_name):
@@ -476,9 +463,6 @@ class RepoGuard:
             self.update_local_repos()
 
         self.check_new_code(self.detect_rename)
-
-        print("PRENOTIFY")
-        print(self.check_results)
 
         if self.args.notify:
             self.send_results()

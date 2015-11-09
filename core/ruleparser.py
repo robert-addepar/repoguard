@@ -23,7 +23,6 @@ class RuleLoader:
     def load(self):
         with open(self.file_name) as f:
             content = f.read()
-            print("{} content:\n{}".format(f, content))
             return {self._get_key(c): self._load_yaml(c) for c in content.split('---') if len(c) > 0}
 
     @staticmethod
@@ -57,16 +56,11 @@ class RuleLoader:
 
 # Helper method to load configs in a dir
 def load_rules(rule_dir):
-    print("rule_dir: {}".format(rule_dir))
     rules = {}
     for (dirpath, dirnames, filenames) in os.walk(rule_dir, followlinks=True):
-        print("IN OS WALK LOOP")
-        print("line 63: {} {} {}".format(dirpath, dirnames, filenames))
         for filename in filenames:
-            print("line 65 filename: {}".format(filename))
             if filename.endswith(".yml"):
                 try:
-                    print("loading rule file: {}".format(filename))
                     rules.update(RuleLoader(os.path.join(dirpath, filename)).load())
                 except Exception as e:
                     raise RuleLoaderException("Error parsing file %s" % filename, str(e)), \
