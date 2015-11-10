@@ -79,7 +79,7 @@ class Repository():
     def get_rev_list_starting_at(self, start_at):
         cmd = ["git", "log", "--reverse", "{}...HEAD".format(start_at), "--format=%H"]
         try:
-            return subprocess.check_output(cmd, cwd=self.full_dir_path).split("\n")
+            return subprocess.check_output(cmd, cwd=self.full_dir_path).strip().split("\n")
         except subprocess.CalledProcessError, e:
             error_msg = "Error when calling {} (cwd: {}): {}".format(repr(cmd), self.full_dir_path, e)
             self.logger.error(error_msg)
