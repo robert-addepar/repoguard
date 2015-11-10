@@ -186,15 +186,15 @@ class RepoGuard:
                 else:
                     self.logger.debug('Skip repo %s because directory doesnt exist' % repo.dir_name)
 
-        if not self.args.notify:
-            for alert in self.check_results:
-                try:
-                    print '\t'.join([
-                        alert.rule.name, alert.repo.name, alert.commit, '%s:%d' % (alert.filename, alert.line_number),
-                        alert.rule.description, alert.line[0:200].replace("\t", " ").decode('utf-8', 'replace')
-                    ])
-                except UnicodeEncodeError:
-                    self.logger.exception('failed to get the details due to some unicode error madness')
+#       if not self.args.notify:
+#           for alert in self.check_results:
+#               try:
+#                   print '\t'.join([
+#                       alert.rule.name, alert.repo.name, alert.commit, '%s:%d' % (alert.filename, alert.line_number),
+#                       alert.rule.description, alert.line[0:200].replace("\t", " ").decode('utf-8', 'replace')
+#                   ])
+#               except UnicodeEncodeError:
+#                   self.logger.exception('failed to get the details due to some unicode error madness')
 
     def store_results(self):
         (host, port) = self.args.store.split(":")
